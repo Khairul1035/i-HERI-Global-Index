@@ -6,7 +6,7 @@ from datetime import datetime
 import requests
 
 # =========================================================
-# 1. ENTERPRISE CONFIGURATION
+# 1. PAGE CONFIG
 # =========================================================
 st.set_page_config(
     page_title="i-HERI | Global Equity Terminal",
@@ -18,31 +18,60 @@ RESEARCHER_NAME = "MOHD KHAIRUL RIDHUAN BIN MOHD FADZIL"
 CURRENT_YEAR = datetime.now().year
 
 # =========================================================
-# 2. CUSTOM CSS - HIGH CONTRAST / PROFESSIONAL DARK TERMINAL
+# 2. HIGH-CONTRAST CSS
 # =========================================================
 st.markdown("""
 <style>
+    /* ===============================
+       GLOBAL APP
+    =============================== */
+    .stApp {
+        background-color: #0D1117 !important;
+        color: #F0F6FC !important;
+    }
+
     .main {
-        background-color: #0D1117;
-        color: #F0F6FC;
+        background-color: #0D1117 !important;
+        color: #F0F6FC !important;
     }
 
     .block-container {
         padding-top: 1.2rem;
         padding-bottom: 1rem;
+        color: #F0F6FC !important;
     }
 
+    /* Semua teks biasa */
+    p, span, div, label, li {
+        color: #E6EDF3 !important;
+    }
+
+    /* Heading */
+    h1, h2, h3, h4, h5, h6 {
+        color: #F8FAFC !important;
+    }
+
+    /* ===============================
+       SIDEBAR
+    =============================== */
     section[data-testid="stSidebar"] {
-        background-color: #111827;
+        background-color: #0B1220 !important;
         border-right: 1px solid #30363D;
     }
 
-    .stMetric {
-        background-color: #161B22;
-        padding: 15px;
-        border-radius: 8px;
-        border: 1px solid #30363D;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    section[data-testid="stSidebar"] * {
+        color: #F0F6FC !important;
+    }
+
+    /* ===============================
+       METRICS
+    =============================== */
+    div[data-testid="stMetric"] {
+        background-color: #111827 !important;
+        border: 1px solid #30363D !important;
+        border-radius: 10px !important;
+        padding: 14px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.28) !important;
     }
 
     [data-testid="stMetricLabel"] {
@@ -51,24 +80,113 @@ st.markdown("""
     }
 
     [data-testid="stMetricValue"] {
-        color: #58A6FF !important;
-        font-family: 'Courier New', Courier, monospace !important;
-        font-weight: 700 !important;
+        color: #FFFFFF !important;
+        font-family: 'Courier New', monospace !important;
+        font-weight: 800 !important;
     }
 
     [data-testid="stMetricDelta"] {
         color: #3FB950 !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
     }
 
-    h1, h2, h3, h4, h5, h6, p, div, span, label {
-        color: #F0F6FC;
+    /* ===============================
+       INPUT LABELS
+    =============================== */
+    .stSelectbox label,
+    .stSlider label,
+    .stNumberInput label,
+    .stTextInput label,
+    .stTextArea label,
+    .stDateInput label,
+    .stTimeInput label,
+    .stMultiSelect label {
+        color: #F0F6FC !important;
+        font-weight: 700 !important;
+        opacity: 1 !important;
     }
 
+    /* ===============================
+       INPUT BOXES
+    =============================== */
+    div[data-baseweb="select"] > div {
+        background-color: #111827 !important;
+        color: #F0F6FC !important;
+        border: 1px solid #30363D !important;
+    }
+
+    div[data-baseweb="select"] * {
+        color: #F0F6FC !important;
+    }
+
+    .stNumberInput input,
+    .stTextInput input,
+    .stTextArea textarea {
+        background-color: #111827 !important;
+        color: #F0F6FC !important;
+        border: 1px solid #30363D !important;
+    }
+
+    /* ===============================
+       SLIDER
+    =============================== */
+    .stSlider [data-baseweb="slider"] * {
+        color: #F0F6FC !important;
+    }
+
+    .stSlider > div > div > div > div {
+        background-color: #58A6FF !important;
+    }
+
+    /* ===============================
+       CAPTION / MUTED TEXT
+    =============================== */
+    .stCaption, small {
+        color: #9AA4B2 !important;
+        opacity: 1 !important;
+    }
+
+    /* ===============================
+       INFO / ALERT BOX
+    =============================== */
+    div[data-testid="stInfo"] {
+        background-color: #0F2747 !important;
+        border: 1px solid #1F6FEB !important;
+        color: #F0F6FC !important;
+        border-radius: 8px !important;
+    }
+
+    div[data-testid="stInfo"] * {
+        color: #F0F6FC !important;
+    }
+
+    /* ===============================
+       DATAFRAME
+    =============================== */
+    div[data-testid="stDataFrame"] {
+        border: 1px solid #30363D !important;
+        border-radius: 8px !important;
+    }
+
+    /* ===============================
+       BUTTON
+    =============================== */
+    .stDownloadButton button,
+    .stButton button {
+        background-color: #1F6FEB !important;
+        color: #FFFFFF !important;
+        border: 1px solid #1F6FEB !important;
+        border-radius: 8px !important;
+        font-weight: 700 !important;
+    }
+
+    /* ===============================
+       CUSTOM CLASSES
+    =============================== */
     .header-style {
         font-size: 28px;
         font-weight: 800;
-        color: #FFFFFF;
+        color: #FFFFFF !important;
         border-bottom: 2px solid #58A6FF;
         padding-bottom: 10px;
         font-family: 'Inter', sans-serif;
@@ -76,65 +194,93 @@ st.markdown("""
     }
 
     .report-box {
-        background-color: #161B22;
+        background-color: #0F172A;
         padding: 20px;
         border-radius: 10px;
         border: 1px solid #238636;
-        color: #F0F6FC;
-        line-height: 1.6;
+        color: #F0F6FC !important;
+        line-height: 1.7;
     }
 
-    .info-box {
-        background-color: #132238;
-        border: 1px solid #58A6FF;
-        border-radius: 8px;
-        padding: 14px 16px;
-        color: #F0F6FC;
-        margin-top: 5px;
-        margin-bottom: 5px;
+    .report-box * {
+        color: #F0F6FC !important;
     }
 
     .summary-box {
-        background-color: #161B22;
+        background-color: #0F172A;
         border: 1px solid #30363D;
-        border-left: 5px solid #58A6FF;
+        border-left: 4px solid #58A6FF;
         border-radius: 10px;
         padding: 16px 18px;
-        margin-bottom: 12px;
-        color: #F0F6FC;
-    }
-
-    .stSlider > div > div > div > div {
-        background-color: #58A6FF;
-    }
-
-    .stSelectbox label,
-    .stNumberInput label,
-    .stSlider label {
         color: #F0F6FC !important;
-        font-weight: 600 !important;
+        margin-bottom: 12px;
     }
 
-    .stCaption, small {
-        color: #9AA4B2 !important;
+    .summary-box * {
+        color: #F0F6FC !important;
     }
 
-    div[data-testid="stInfo"] {
-        background-color: #132238;
-        color: #F0F6FC;
-        border: 1px solid #58A6FF;
+    .info-box {
+        background-color: #0F2747;
+        border: 1px solid #1F6FEB;
         border-radius: 8px;
+        padding: 14px 16px;
+        color: #F0F6FC !important;
+        font-weight: 700;
     }
 
-    div[data-testid="stDataFrame"] {
+    .invoice-box {
+        padding: 30px;
         border: 1px solid #30363D;
-        border-radius: 8px;
+        border-radius: 10px;
+        background-color: #111827;
+        color: #F0F6FC !important;
+    }
+
+    .invoice-label {
+        margin: 0;
+        font-size: 14px;
+        color: #C9D1D9 !important;
+    }
+
+    .invoice-main {
+        margin: 0;
+        color: #FFFFFF !important;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .invoice-green-label {
+        margin: 0;
+        font-size: 14px;
+        color: #3FB950 !important;
+        margin-top: 10px;
+    }
+
+    .invoice-green-value {
+        margin: 0;
+        color: #3FB950 !important;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .invoice-blue-label {
+        margin: 0;
+        font-size: 14px;
+        color: #58A6FF !important;
+    }
+
+    .invoice-final {
+        margin: 0;
+        color: #58A6FF !important;
+        font-size: 42px;
+        font-weight: 800;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # =========================================================
-# 3. REAL-TIME DATA FETCHING
+# 3. LIVE FOREX DATA
 # =========================================================
 @st.cache_data(ttl=3600)
 def get_live_rates():
@@ -151,7 +297,7 @@ def get_live_rates():
 rates = get_live_rates()
 
 # =========================================================
-# 4. SIDEBAR: COMMAND CENTER
+# 4. SIDEBAR
 # =========================================================
 with st.sidebar:
     st.markdown("<h2 style='color:#58A6FF;'>i-HERI COMMAND CENTER</h2>", unsafe_allow_html=True)
@@ -200,17 +346,17 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-avg_vol = ((df["Vol_Index"].mean() - 1) * 100)
+avg_vol = (df["Vol_Index"].mean() - 1) * 100
 highest_asset = df.loc[df["Local_Price"].idxmax(), "Asset_Class"]
 highest_price = df["Local_Price"].max()
 
 st.markdown(f"""
 <div class="summary-box">
-<b>Executive Summary:</b><br>
-Current benchmark jurisdiction is <b>{country}</b>. Average market volatility across tracked medical assets is
-<b>{avg_vol:.2f}%</b>. The highest priced asset in the present simulation is <b>{highest_asset}</b> at
-<b>{c_code} {highest_price:,.2f}</b>. This terminal is designed to estimate inflation pressure,
-supply-chain leakage, and affordability intervention capacity in real time.
+    <b>Executive Summary:</b><br>
+    Current benchmark jurisdiction is <b>{country}</b>. Average market volatility across tracked medical assets is
+    <b>{avg_vol:.2f}%</b>. The highest priced asset in the present simulation is <b>{highest_asset}</b> at
+    <b>{c_code} {highest_price:,.2f}</b>. This terminal is designed to estimate inflation pressure,
+    supply-chain leakage, and affordability intervention capacity in real time.
 </div>
 """, unsafe_allow_html=True)
 
@@ -231,7 +377,7 @@ st.divider()
 # =========================================================
 # 8. INTERMEDIARY LEAKAGE ANALYSIS
 # =========================================================
-col_l, col_r = st.columns([1.5, 1])
+col_l, col_r = st.columns([1.6, 1])
 
 with col_l:
     st.subheader("🕵️ Intermediary Leakage & Supply Chain Analysis")
@@ -261,8 +407,7 @@ with col_l:
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         font=dict(color="#F0F6FC", size=13),
-        title_font=dict(size=16, color="#FFFFFF"),
-        legend=dict(font=dict(color="#C9D1D9")),
+        legend=dict(font=dict(color="#F0F6FC")),
         margin=dict(l=0, r=0, t=30, b=0),
         xaxis=dict(title="", tickfont=dict(color="#F0F6FC")),
         yaxis=dict(title="Amount", tickfont=dict(color="#F0F6FC"))
@@ -287,15 +432,15 @@ with col_r:
 
     st.markdown(f"""
     <div class="report-box">
-    <b>Market Integrity Stress Test:</b><br>
-    At a <b>{markup}%</b> markup, the average estimated non-therapeutic leakage per asset is
-    <b>{c_code} {avg_leakage:,.2f}</b>.<br><br>
+        <b>Market Integrity Stress Test:</b><br>
+        At a <b>{markup}%</b> markup, the average estimated non-therapeutic leakage per asset is
+        <b>{c_code} {avg_leakage:,.2f}</b>.<br><br>
 
-    <b>Risk Assessment:</b> {risk_status}<br>
-    <b>Interpretation:</b> {risk_note}<br><br>
+        <b>Risk Assessment:</b> {risk_status}<br>
+        <b>Interpretation:</b> {risk_note}<br><br>
 
-    <b>Recommendation:</b> Deploy Social Capital (Waqf/Zakat) and direct procurement mechanisms
-    as a <b>protective affordability buffer</b> to reduce inflation transmission into final patient billing.
+        <b>Recommendation:</b> Deploy Social Capital (Waqf/Zakat) and direct procurement mechanisms
+        as a <b>protective affordability buffer</b> to reduce inflation transmission into final patient billing.
     </div>
     """, unsafe_allow_html=True)
 
@@ -304,7 +449,7 @@ st.divider()
 # =========================================================
 # 9. CAPITAL INJECTION HUB
 # =========================================================
-st.subheader("🏦 Strategic Capital Injection & Resilience Hub")
+st.subheader("🏛️ Strategic Capital Injection & Resilience Hub")
 st.write("Neutralizing inflation through multi-sector liquidity injection (Millions).")
 
 c1, c2, c3 = st.columns(3)
@@ -315,7 +460,11 @@ soc_inj = c3.number_input("Social Equity Capital (Zakat/Waqf)", min_value=0.0, v
 total_buffer_val = (gov_inj + mnc_inj + soc_inj) * 1_000_000
 
 st.markdown(
-    f"<div class='info-box'><b>Total Available Liquidity Buffer:</b> {c_code} {total_buffer_val:,.2f}</div>",
+    f"""
+    <div class="info-box">
+        Total Available Liquidity Buffer: {c_code} {total_buffer_val:,.2f}
+    </div>
+    """,
     unsafe_allow_html=True
 )
 
@@ -337,17 +486,17 @@ cb1, cb2 = st.columns(2)
 
 with cb1:
     st.markdown(f"""
-    <div style="padding:30px; border:1px solid #30363D; border-radius:10px; background-color:#161B22;">
-        <p style="margin:0; font-size:14px; color:#C9D1D9;">Market Invoice Price:</p>
-        <h3 style="margin:0; color:#F0F6FC;">{c_code} {price_point:,.2f}</h3>
+    <div class="invoice-box">
+        <p class="invoice-label">Market Invoice Price:</p>
+        <h3 class="invoice-main">{c_code} {price_point:,.2f}</h3>
 
-        <p style="margin:0; font-size:14px; color:#3FB950; margin-top:10px;">i-HERI Social Hedge Application:</p>
-        <h3 style="margin:0; color:#3FB950;">- {c_code} {social_hedge_val:,.2f}</h3>
+        <p class="invoice-green-label">i-HERI Social Hedge Application:</p>
+        <h3 class="invoice-green-value">- {c_code} {social_hedge_val:,.2f}</h3>
 
-        <hr style="border-color:#30363D;">
+        <hr style="border-color:#30363D; margin:16px 0;">
 
-        <p style="margin:0; font-size:14px; color:#58A6FF;">Final Amount Payable by Patient:</p>
-        <h1 style="color:#58A6FF; margin:0; font-size:45px;">{c_code} {net_payable:,.2f}</h1>
+        <p class="invoice-blue-label">Final Amount Payable by Patient:</p>
+        <h1 class="invoice-final">{c_code} {net_payable:,.2f}</h1>
     </div>
     """, unsafe_allow_html=True)
 
